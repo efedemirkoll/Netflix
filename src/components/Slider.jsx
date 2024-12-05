@@ -4,10 +4,15 @@ import Slider from "react-styled-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Movies from "../utils/Movies";
 import { Link } from "react-router-dom";
+import "../components/Slider.css"
+
 const responsive = [
-  { breakPoint: 1280, cardsToShow: 3 },
-  { breakPoint: 760, cardsToShow: 2 },
+  { breakPoint: 1440, cardsToShow: 4 }, // Büyük ekranlarda 4 kart göster
+  { breakPoint: 1024, cardsToShow: 3 }, // Orta ekranlarda 3 kart göster
+  { breakPoint: 768, cardsToShow: 2 },  // Tablet boyutunda 2 kart göster
+  { breakPoint: 480, cardsToShow: 1 },  // Küçük ekranlarda 1 kart göster
 ];
+
 
 const ExampleSlider = () => {
   const filteredcomedy = Movies.filter((item) => item.id === 1 || item.id === 2 || item.id === 3 || item.id === 4);
@@ -17,34 +22,38 @@ const ExampleSlider = () => {
   return (
     <Container>
 
-      <SliderWrapper>
-        <Slider responsive={responsive} customStyles={{ margin: "0 auto" }}>
-          {filteredcomedy.map((item) => {
-            return (
-              <Slide key={item.id}>
-                <StyledImage src={item.image} alt={item.name} />
-                <p className="legend">{item.name}</p>
-                <Link to={`detay/${item.id}`}>
-                  <button className="p-4">
-                    DETAY
-                  </button>
-                </Link>
+      <Container>
+        <h3 className="slider-title">Macera</h3>
+        <SliderWrapper>
+          <Slider responsive={responsive} customStyles={{ margin: "0 auto" }}>
+            {filteredcomedy.map((item) => {
+              return (
+                <div key={item.id} className="slide">
+                  <StyledImage src={item.image} alt={item.name} />
+                  <p className="legend">{item.name}</p>
+                  <Link to={`detay/${item.id}`}>
+                    <button className="button">DETAY</button>
+                  </Link>
+                </div>
+              );
+            })}
+          </Slider>
+        </SliderWrapper>
+      </Container>
 
-              </Slide>
-            );
-          })}
-        </Slider>
-      </SliderWrapper>
 
       {/* 2.silider */}
       <SliderWrapper>
         <Slider responsive={responsive} customStyles={{ margin: "0 auto" }}>
           {filteredadventure.map((item) => {
             return (
-              <Slide key={item.id}>
+              <div key={item.id} className="slide">
                 <StyledImage src={item.image} alt={item.name} />
                 <p className="legend">{item.name}</p>
-              </Slide>
+                <Link to={`detay/${item.id}`}>
+                  <button className="button">DETAY</button>
+                </Link>
+              </div>
             );
           })}
         </Slider>
@@ -55,14 +64,18 @@ const ExampleSlider = () => {
         <Slider responsive={responsive} customStyles={{ margin: "0 auto" }}>
           {filteredfear.map((item) => {
             return (
-              <Slide key={item.id}>
+              <div key={item.id} className="slide">
                 <StyledImage src={item.image} alt={item.name} />
                 <p className="legend">{item.name}</p>
-              </Slide>
+                <Link to={`detay/${item.id}`}>
+                  <button className="button">DETAY</button>
+                </Link>
+              </div>
             );
           })}
         </Slider>
       </SliderWrapper>
+
     </Container>
   );
 };
